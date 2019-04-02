@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.shiro.ShiroDao">
+<resultMap id="UserForShiro" type="User">
+    <id property="userId" column="user_id"/>
+    <result property="password" column="password"/>
+    <result property="email" column="email"/>
+    <result property="name" column="name"/>
+    <result property="userPic" column="user_pic"/>
+    <collection property="roles" ofType="SysRole">
+        <id property="roleId" column="role_id"/>
+        <result property="available" column="available"/>
+        <result property="description" column="description"/>
+        <result property="role" column="role"/>
+        <collection property="permissions" ofType="Permission">
+            <id property="permissionId" column="permission_id"/>
+            <result property="available" column="available"/>
+            <result property="description" column="description"/>
+            <result property="permission" column="permission"/>
+            <result property="url" column="url"/>
+        </collection>
+    </collection>
+</resultMap>
+
+<resultMap id="roles" type="SysRole">
+    <id property="roleId" column="role_id"/>
+    <result property="available" column="available"/>
+    <result property="description" column="description"/>
+    <result property="role" column="role"/>
+    <collection property="permissions" ofType="Permission"/>
+</resultMap>
+
+<resultMap id="permission" type="Permission">
+    <id property="permissionId" column="permission_id"/>
+    <result property="available" column="available"/>
+    <result property="description" column="description"/>
+    <result property="permission" column="permission"/>
+    <result property="url" column="url"/>
+</resultMap>
+
+<select id="findByEmail" resultMap="UserForShiro" parameterType="String">
+    SELECT *
+    FROM user
+    LEFT JOIN authc_user_role ON user.user_id = authc_user_role.user_id
+    LEFT JOIN authc_role ON authc_role.role_id = authc_user_role.role_id
+    LEFT JOIN authc_role_permission ON authc_role_permission.role_id = authc_role.role_id
+    LEFT JOIN authc_permission ON authc_permission.permission_id = authc_role_permission.permission_id
+    WHERE user.email = #{email}
+</select>
+
+
+<update id="modifyPw" parameterType="String" >
+    UPDATE user set password = #{password} WHERE email = #{email};
+</update>
+</mapper>
