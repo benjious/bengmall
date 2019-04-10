@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StudentDao">
+    <resultMap id="Student" type="student">
+        <id property="id" column="Id"/>
+        <result property="name" column="name"/>
+        <result property="teacherId" column="teacher_id"/>
+    </resultMap>
+
+    <resultMap id="Teacher" type="teacher">
+        <id property="id" column="Id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <resultMap id="StudentWithTeacher" type="studentWithTeacher">
+        <id property="id" column="Id"/>
+        <result property="name" column="name"/>
+        <result property="teacherId" column="teacher_id"/>
+        <association property="teacher" column="teacher_id"  javaType="Teacher" select="queryTeacherById" />
+    </resultMap>
+
+    <resultMap id="StudentWithList" type="studentWithList">
+        <id property="id" column="Id" />
+        <result property="name" column="name"/>
+        <result property="teacherId" column="teacher_id"/>
+        <collection property="teachers" column="teacher_id" ofType="Teacher" select="queryTeacherById">
+        </collection>
+    </resultMap>
+
+    <select id="queryStuWithListById" resultMap="StudentWithList" parameterType="int" >
+        SELECT * FROM student
+        WHERE id = #{id};
+    </select>
+
+
+    <select id="queryAllStudents" resultMap="Student">
+        SELECT * FROM student;
+    </select>
+
+    <select id="queryInnerStudentById" resultMap="StudentWithTeacher">
+        SELECT * FROM student
+        WHERE id = #{id};
+    </select>
+
+    <select id="queryTeacherById" resultMap="Teacher" parameterType="int" >
+        SELECT * FROM teacher
+        WHERE id = #{id};
+    </select>
+
+   <select id="querySingleStudentById" parameterType="int" resultMap="Student">
+       SELECT  *
+       FROM student
+       WHERE id = #{id};
+   </select>
+
+    <select id="querySingleStuByMutlParmas" resultMap="Student">
+        SELECT  *
+        FROM student
+        WHERE id = #{id}
+        AND  name = #{studentName};
+    </select>
+
+
+
+</mapper>

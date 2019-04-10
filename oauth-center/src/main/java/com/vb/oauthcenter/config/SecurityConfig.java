@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //spring security 放行注册中心健康检查
         http.authorizeRequests()
                 .antMatchers("/oauth/**","/login/**", "/client/exit","/actuator**").permitAll()
                 .anyRequest().authenticated()   // 其他地址的访问均需验证权限

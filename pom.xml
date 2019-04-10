@@ -27,13 +27,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>oauthcenter</module>
-        <module>account-server</module>
         <module>seckill-server</module>
         <module>oauth-client-sso</module>
         <module>oauth-client2-sso</module>
         <module>oauth-center</module>
         <module>common-util</module>
+        <module>gateway</module>
     </modules>
 
 
@@ -42,7 +41,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
+                <version>Greenwich.SR1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

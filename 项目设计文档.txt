@@ -1,6 +1,13 @@
 功能；
-- oauthcenter提供了
+- oauthcenter提供了认证服务器，使用的是oauth协议
 - seckill- server 作为项目前端，访问资源必须请求资源
+
+
+端口集合 ：
+zuul : 9090
+
+
+
 
 
 

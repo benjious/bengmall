@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vb.seckillserver.dao.good.GoodProductMapper">
+  <resultMap id="BaseResultMap" type="GoodProduct">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="mer_id" jdbcType="INTEGER" property="merId" />
+    <result column="freight_id" jdbcType="INTEGER" property="freightId" />
+    <result column="type_id" jdbcType="TINYINT" property="typeId" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="marque" jdbcType="VARCHAR" property="marque" />
+    <result column="barcode" jdbcType="VARCHAR" property="barcode" />
+    <result column="brand_id" jdbcType="INTEGER" property="brandId" />
+    <result column="virtualcanbuy" jdbcType="INTEGER" property="virtualcanbuy" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="integral" jdbcType="INTEGER" property="integral" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="warning_stock" jdbcType="INTEGER" property="warningStock" />
+    <result column="picture_url" jdbcType="VARCHAR" property="pictureUrl" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="is_package" jdbcType="CHAR" property="isPackage" />
+    <result column="is_integral" jdbcType="CHAR" property="isIntegral" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="GoodProduct">
+    <result column="intro" jdbcType="LONGVARCHAR" property="intro" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, category_id, mer_id, freight_id, type_id, keywords, tags, marque, barcode, 
+    brand_id, virtualcanbuy, price, market_price, integral, stock, warning_stock, picture_url, 
+    status, state, is_package, is_integral, sort, deleted_at, created_at, updated_at
+  </sql>
+  <sql id="Blob_Column_List">
+    intro
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="GoodProductExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from good_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="GoodProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from good_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from good_product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from good_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="GoodProductExample">
+    delete from good_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="GoodProduct">
+    insert into good_product (id, name, category_id, 
+      mer_id, freight_id, type_id, 
+      keywords, tags, marque, 
+      barcode, brand_id, virtualcanbuy, 
+      price, market_price, integral, 
+      stock, warning_stock, picture_url, 
+      status, state, is_package, 
+      is_integral, sort, deleted_at, 
+      created_at, updated_at, intro
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
+      #{merId,jdbcType=INTEGER}, #{freightId,jdbcType=INTEGER}, #{typeId,jdbcType=TINYINT}, 
+      #{keywords,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{marque,jdbcType=VARCHAR}, 
+      #{barcode,jdbcType=VARCHAR}, #{brandId,jdbcType=INTEGER}, #{virtualcanbuy,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{marketPrice,jdbcType=DECIMAL}, #{integral,jdbcType=INTEGER}, 
+      #{stock,jdbcType=INTEGER}, #{warningStock,jdbcType=INTEGER}, #{pictureUrl,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{state,jdbcType=TINYINT}, #{isPackage,jdbcType=CHAR}, 
+      #{isIntegral,jdbcType=CHAR}, #{sort,jdbcType=INTEGER}, #{deletedAt,jdbcType=TIMESTAMP}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{intro,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="GoodProduct">
+    insert into good_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="merId != null">
+        mer_id,
+      </if>
+      <if test="freightId != null">
+        freight_id,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="tags != null">
+        tags,
+      </if>
+      <if test="marque != null">
+        marque,
+      </if>
+      <if test="barcode != null">
+        barcode,
+      </if>
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="virtualcanbuy != null">
+        virtualcanbuy,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="integral != null">
+        integral,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="warningStock != null">
+        warning_stock,
+      </if>
+      <if test="pictureUrl != null">
+        picture_url,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="isPackage != null">
+        is_package,
+      </if>
+      <if test="isIntegral != null">
+        is_integral,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="deletedAt != null">
+        deleted_at,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="merId != null">
+        #{merId,jdbcType=INTEGER},
+      </if>
+      <if test="freightId != null">
+        #{freightId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=TINYINT},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="marque != null">
+        #{marque,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null">
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="virtualcanbuy != null">
+        #{virtualcanbuy,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="integral != null">
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="warningStock != null">
+        #{warningStock,jdbcType=INTEGER},
+      </if>
+      <if test="pictureUrl != null">
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="isPackage != null">
+        #{isPackage,jdbcType=CHAR},
+      </if>
+      <if test="isIntegral != null">
+        #{isIntegral,jdbcType=CHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="deletedAt != null">
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="GoodProductExample" resultType="java.lang.Long">
+    select count(*) from good_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update good_product
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.merId != null">
+        mer_id = #{record.merId,jdbcType=INTEGER},
+      </if>
+      <if test="record.freightId != null">
+        freight_id = #{record.freightId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null">
+        type_id = #{record.typeId,jdbcType=TINYINT},
+      </if>
+      <if test="record.keywords != null">
+        keywords = #{record.keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tags != null">
+        tags = #{record.tags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marque != null">
+        marque = #{record.marque,jdbcType=VARCHAR},
+      </if>
+      <if test="record.barcode != null">
+        barcode = #{record.barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandId != null">
+        brand_id = #{record.brandId,jdbcType=INTEGER},
+      </if>
+      <if test="record.virtualcanbuy != null">
+        virtualcanbuy = #{record.virtualcanbuy,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.marketPrice != null">
+        market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.integral != null">
+        integral = #{record.integral,jdbcType=INTEGER},
+      </if>
+      <if test="record.stock != null">
+        stock = #{record.stock,jdbcType=INTEGER},
+      </if>
+      <if test="record.warningStock != null">
+        warning_stock = #{record.warningStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.pictureUrl != null">
+        picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=TINYINT},
+      </if>
+      <if test="record.isPackage != null">
+        is_package = #{record.isPackage,jdbcType=CHAR},
+      </if>
+      <if test="record.isIntegral != null">
+        is_integral = #{record.isIntegral,jdbcType=CHAR},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.deletedAt != null">
+        deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.intro != null">
+        intro = #{record.intro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update good_product
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      mer_id = #{record.merId,jdbcType=INTEGER},
+      freight_id = #{record.freightId,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=TINYINT},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      tags = #{record.tags,jdbcType=VARCHAR},
+      marque = #{record.marque,jdbcType=VARCHAR},
+      barcode = #{record.barcode,jdbcType=VARCHAR},
+      brand_id = #{record.brandId,jdbcType=INTEGER},
+      virtualcanbuy = #{record.virtualcanbuy,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      integral = #{record.integral,jdbcType=INTEGER},
+      stock = #{record.stock,jdbcType=INTEGER},
+      warning_stock = #{record.warningStock,jdbcType=INTEGER},
+      picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      state = #{record.state,jdbcType=TINYINT},
+      is_package = #{record.isPackage,jdbcType=CHAR},
+      is_integral = #{record.isIntegral,jdbcType=CHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      intro = #{record.intro,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update good_product
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      mer_id = #{record.merId,jdbcType=INTEGER},
+      freight_id = #{record.freightId,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=TINYINT},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      tags = #{record.tags,jdbcType=VARCHAR},
+      marque = #{record.marque,jdbcType=VARCHAR},
+      barcode = #{record.barcode,jdbcType=VARCHAR},
+      brand_id = #{record.brandId,jdbcType=INTEGER},
+      virtualcanbuy = #{record.virtualcanbuy,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      integral = #{record.integral,jdbcType=INTEGER},
+      stock = #{record.stock,jdbcType=INTEGER},
+      warning_stock = #{record.warningStock,jdbcType=INTEGER},
+      picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      state = #{record.state,jdbcType=TINYINT},
+      is_package = #{record.isPackage,jdbcType=CHAR},
+      is_integral = #{record.isIntegral,jdbcType=CHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="GoodProduct">
+    update good_product
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="merId != null">
+        mer_id = #{merId,jdbcType=INTEGER},
+      </if>
+      <if test="freightId != null">
+        freight_id = #{freightId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=TINYINT},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="marque != null">
+        marque = #{marque,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null">
+        barcode = #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="virtualcanbuy != null">
+        virtualcanbuy = #{virtualcanbuy,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="integral != null">
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="warningStock != null">
+        warning_stock = #{warningStock,jdbcType=INTEGER},
+      </if>
+      <if test="pictureUrl != null">
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="isPackage != null">
+        is_package = #{isPackage,jdbcType=CHAR},
+      </if>
+      <if test="isIntegral != null">
+        is_integral = #{isIntegral,jdbcType=CHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intro != null">
+        intro = #{intro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="GoodProduct">
+    update good_product
+    set name = #{name,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      mer_id = #{merId,jdbcType=INTEGER},
+      freight_id = #{freightId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=TINYINT},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      marque = #{marque,jdbcType=VARCHAR},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      virtualcanbuy = #{virtualcanbuy,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      integral = #{integral,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER},
+      warning_stock = #{warningStock,jdbcType=INTEGER},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      state = #{state,jdbcType=TINYINT},
+      is_package = #{isPackage,jdbcType=CHAR},
+      is_integral = #{isIntegral,jdbcType=CHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      intro = #{intro,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="GoodProduct">
+    update good_product
+    set name = #{name,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      mer_id = #{merId,jdbcType=INTEGER},
+      freight_id = #{freightId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=TINYINT},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      marque = #{marque,jdbcType=VARCHAR},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      virtualcanbuy = #{virtualcanbuy,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      integral = #{integral,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER},
+      warning_stock = #{warningStock,jdbcType=INTEGER},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      state = #{state,jdbcType=TINYINT},
+      is_package = #{isPackage,jdbcType=CHAR},
+      is_integral = #{isIntegral,jdbcType=CHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
