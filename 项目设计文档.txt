@@ -4,10 +4,88 @@
 
 
 端口集合 ：
-zuul : 9090
+gateway : 9090
+
+auth-center : 8080
+单点登录的服务节点 ： 8081
+ oauth-client2  资源服务器的节点  ： 8082
+
+seckill-server : 8090
+订单微服务 ： 8091
+
+
+--------------------------------------
 
 
 
+
+
+zuul 网关相关站点信息
+- 站点所有的路由信息
+localhost:9090/actuator/routes
+
+- 站点所有的过滤器
+localhost:9090/actuator/filters
+
+- 路由的节点有 :
+
+zuul:
+  routes:
+    auth:
+      path: /center/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId: oauth-center
+      url: http://localhost:8080
+    ocs-2:
+      path: /ocs2/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId: oauth-client-sso2
+    ocs-1:
+      path: /ocs1/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId: ocs-1
+
+    os:
+      path: /order/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId: order-server
+
+    sck:
+      path: /sck/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId : seckill-server
+
+
+
+
+
+
+
+
+网关测试 ：
+1. 运行 oauth-center
+2. 运行 gateway
+3. 运行 order
+
+直接访问资源路径 ：
+localhost:8091/raw
+
+
+localhost:9090/order/raw
+
+
+localhost:9090/center/hello
+
+
+
+--------------------------------------
+
+
+- 数据库里的 client-id 是怎么用的
+- 用于要记住 oauth 是个认证框架
+
+
+--------------------------------------
 
 
 

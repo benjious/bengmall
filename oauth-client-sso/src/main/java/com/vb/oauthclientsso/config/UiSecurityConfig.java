@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UiSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**")

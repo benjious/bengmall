@@ -33,9 +33,15 @@
         <module>oauth-center</module>
         <module>common-util</module>
         <module>gateway</module>
+        <module>order-service</module>
     </modules>
-
-
+    <dependencies>
+        <dependency>
+            <groupId>com.vb</groupId>
+            <artifactId>common-util</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -47,9 +53,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-
-
 
 
 </project>

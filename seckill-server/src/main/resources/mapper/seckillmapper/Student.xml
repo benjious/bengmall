@@ -62,6 +62,11 @@
         AND  name = #{studentName};
     </select>
 
+    <select id="queryStudentTest" parameterType="int" resultType="com.vb.seckillserver.entity.seckill.StudentTest">
+       SELECT  *
+       FROM student
+       WHERE id = #{id};
+   </select>
 
 
 </mapper>

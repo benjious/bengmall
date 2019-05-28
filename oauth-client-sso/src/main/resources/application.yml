@@ -21,6 +21,13 @@ spring:
   thymeleaf:
     cache: false
 
+  cloud:
+    consul:
+      discovery:
+        service-name: ocs-1
+
+
+
 
 
 

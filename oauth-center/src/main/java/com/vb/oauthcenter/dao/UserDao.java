@@ -14,8 +14,8 @@ import java.util.Arrays;
 @Repository
 public class UserDao {
 
-    private SysRole admin = new SysRole("ADMIN", "管理员");
-    private SysRole developer = new SysRole("DEVELOPER", "开发者");
+    private SysRole admin = new SysRole("ROLE_ADMIN", "管理员");
+    private SysRole developer = new SysRole("ROLE_DEVELOPER", "开发者");
 
     {
         SysPermission p1 = new SysPermission();

@@ -27,24 +27,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-        configuration.setAllowedHeaders(Arrays.asList("x-requested-with"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //spring security 放行注册中心健康检查
         http.authorizeRequests()
-                .antMatchers("/oauth/**","/login/**", "/client/exit","/actuator**").permitAll()
-                .anyRequest().authenticated()   // 其他地址的访问均需验证权限
+                .antMatchers("/login/**", "/client/exit","/actuator/**","/assets/**").permitAll()
+//                .anyRequest().authenticated()   // 其他地址的访问均需验证权限
+               // .antMatchers("/hello**").hasAuthority("ROLE_ADMIN")
                 .and()
                 .logout().deleteCookies("remove").invalidateHttpSession(false)
                 .and()
@@ -57,6 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/assets/**");
     }
 
+
+
+    //认证
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
@@ -73,4 +68,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081","http://localhost:9090","http://localhost:8091","http://192.168.0.102:8082","http://localhost:8082"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedHeaders(Arrays.asList("x-requested-with"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }

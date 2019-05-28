@@ -3,6 +3,7 @@ package com.vb.seckillserver.dao.seckill;
 
 
 import com.vb.seckillserver.entity.seckill.Student;
+import com.vb.seckillserver.entity.seckill.StudentTest;
 import com.vb.seckillserver.entity.seckill.StudentWithList;
 import com.vb.seckillserver.entity.seckill.StudentWithTeacher;
 
@@ -25,5 +26,8 @@ public interface StudentDao {
 
     //类中带类的查询
     StudentWithTeacher queryInnerStudentById(int id);
+
+    //返回测试
+    StudentTest queryStudentTest(int id);
 
 }

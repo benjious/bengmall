@@ -1,0 +1,28 @@
+server:
+  port: 8091
+  servlet:
+    session:
+      cookie:
+        name: UISESSIONCOUPON
+
+
+security:
+  oauth2:
+    resource:
+      id: order-server
+      user-info-uri: http://localhost:8080/user
+      prefer-token-info: false
+
+
+spring:
+  cloud:
+    consul:
+      discovery:
+        service-name: order-server
+        instanceId: ${spring.application.name}:${random.value}
+  application:
+    name: order-server
+
+#logging.level.org.springframework.security: DEBUG
+
+

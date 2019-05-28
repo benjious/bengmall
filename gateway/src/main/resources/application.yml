@@ -1,22 +1,59 @@
 spring:
   application:
     name: gateway
+
 server:
   port: 9090
-
-
-
+  servlet:
+    session:
+      cookie:
+        name: UISESSIONCOUPON
 
 security:
   oauth2:
     client:
-      client-id: MemberSystem
+      client-id: GatewaySystem
       client-secret: 12345
       access-token-uri: http://localhost:8080/oauth/token
       user-authorization-uri: http://localhost:8080/oauth/authorize
     resource:
       user-info-uri: http://localhost:8080/user/me
 
-logging:
-  level:
-    root: debug
+#logging:
+#  level:
+#    root: debug
+
+zuul:
+  routes:
+    auth:
+      path: /center/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId: oauth-center
+      url: http://localhost:8080
+    ocs-2:
+      path: /ocs2/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId: oauth-client-sso2
+    ocs-1:
+      path: /ocs1/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId: ocs-1
+
+    os:
+      path: /order/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId: order-server
+
+    sck:
+      path: /sck/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId : seckill-server
+
+
+  add-host-header: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: routes,filters,actuator

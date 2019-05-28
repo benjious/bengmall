@@ -21,5 +21,4 @@ public interface SeckillDao {
 
     void killByProcedure(Map<String, Object> paramMap);
 
-
 }
