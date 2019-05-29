@@ -30,6 +30,7 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       serviceId: oauth-center
       url: http://localhost:8080
+      customSensitiveHeaders : true
     ocs-2:
       path: /ocs2/**
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
@@ -38,19 +39,17 @@ zuul:
       path: /ocs1/**
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       serviceId: ocs-1
-
     os:
       path: /order/**
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       serviceId: order-server
-
     sck:
       path: /sck/**
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       serviceId : seckill-server
 
-
   add-host-header: true
+
 
 management:
   endpoints:
