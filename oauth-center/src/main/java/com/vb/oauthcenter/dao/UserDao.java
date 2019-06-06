@@ -9,6 +9,7 @@ import com.vb.oauthcenter.domain.SysUser;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
+import java.util.Date;
 
 
 @Repository
@@ -45,6 +46,11 @@ public class UserDao {
             return sysUser;
         }
         return null;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println((new Date().getTime()));
     }
 
 }

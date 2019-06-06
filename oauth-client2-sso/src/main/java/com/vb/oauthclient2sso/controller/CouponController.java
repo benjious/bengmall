@@ -16,4 +16,10 @@ public class CouponController {
         return new ModelAndView("coupon/list");
     }
 
+
+    @RequestMapping("/hello")
+    public String test(){
+        return "hello world client2sso";
+    }
+
 }

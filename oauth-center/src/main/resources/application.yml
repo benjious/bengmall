@@ -21,7 +21,7 @@ security:
   oauth2:
     resource:
       id: oauth-center
-      user-info-uri: http://localhost:8080/user
+      user-info-uri: http://localhost:8080/user/me
       prefer-token-info: false
 
 

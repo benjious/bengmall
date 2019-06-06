@@ -28,8 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MyUserDetailsService myUserDetailsService;
 
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //spring security 放行注册中心健康检查
@@ -37,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login/**", "/client/exit","/actuator/**","/assets/**").permitAll()
 //                .anyRequest().authenticated()   // 其他地址的访问均需验证权限
                // .antMatchers("/hello**").hasAuthority("ROLE_ADMIN")
-                .and()
+                .anyRequest().authenticated().and()
                 .logout().deleteCookies("remove").invalidateHttpSession(false)
                 .and()
                 .formLogin()
